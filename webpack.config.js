@@ -18,13 +18,13 @@ const webpackConfig = {
     new CleanWebpackPlugin(),
   ],
   module: {
-	rules: [
-	  {
-		 test: /\.css$/i,
-		 use: ["style-loader", "css-loader"],
-	  },
-	],
- },
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
 };
 
 module.exports = webpackConfig;

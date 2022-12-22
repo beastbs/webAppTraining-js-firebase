@@ -19,6 +19,28 @@ export class Question {
       .then(Question.renderList);
   }
 
+  static fetch(token) {
+    if (!token) {
+      return Promise.resolve(`<p class="error">У вас нет токена</p>`);
+    }
+    return fetch(
+      `https://fir-pro-a0714-default-rtdb.europe-west1.firebasedatabase.app/question.json?auth=${token}`
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.error) {
+          return `<p class="error">${response.error}</p>`;
+        }
+        
+        return response
+          ? Object.keys(response).map((key) => ({
+              ...response[key],
+              id: key,
+            }))
+          : [];
+      });
+  }
+
   static renderList() {
     const question = getQuestionsFromLocalStorage();
 
@@ -28,7 +50,6 @@ export class Question {
 
     const list = document.getElementById("list");
     list.innerHTML = html;
-    console.log(html);
   }
 }
 
